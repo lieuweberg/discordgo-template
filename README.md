@@ -1,5 +1,5 @@
 # discordgo-template
-A [discordgo]() template for simple bots. Got tired of writing the same thing over and over again.
+A [discordgo](https://github.com/bwmarrin/discordgo) template for simple bots. Got tired of writing the same thing over and over again.
 
 ## Usage
 1. Clone this project
