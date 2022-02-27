@@ -11,6 +11,6 @@ func init() {
 
 // IncludesPerm returns whether perm is included in permissions
 // discordgo has constants so you can easily fill in perm
-func IncludesPerm(perm int, permissions int) bool {
+func IncludesPerm(perm int64, permissions int64) bool {
 	return (permissions & perm) == perm
 }

@@ -20,7 +20,7 @@ func ping(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
 	if err != nil {
 		return
 	}
-	
+
 	start, _ := m.Timestamp.Parse()
 	end, _ := msg.Timestamp.Parse()
 	sendLatency := end.Sub(start)
@@ -30,5 +30,5 @@ func ping(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
 	editLatency := end.Sub(start)
 
 	_, err = s.ChannelMessageEdit(m.ChannelID, msg.ID, fmt.Sprintf("Pong!\n``` - Send latency: %dms (%dμs)\n - Edit latency: %dms (%dμs)\n - API latency: %dms (%dμs)```",
-	sendLatency / 1e6, sendLatency / 1e3, editLatency / 1e6, editLatency / 1e3, s.HeartbeatLatency().Milliseconds(), s.HeartbeatLatency().Microseconds()))
+		sendLatency/1e6, sendLatency/1e3, editLatency/1e6, editLatency/1e3, s.HeartbeatLatency().Milliseconds(), s.HeartbeatLatency().Microseconds()))
 }

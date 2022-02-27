@@ -7,7 +7,7 @@ A [discordgo](https://github.com/bwmarrin/discordgo) template for simple bots. G
    git clone https://github.com/lieuweberg/discordgo-template.git
    ```
 2. Optionally you can find & replace all instances of `github.com/lieuweberg/discordgo-template` with your own project's url (e.g. `github.com/myname/mycoolbot`).
-3. Rename `config-example.json` to `config.json` and fill in the bot token. See [this](https://raw.githubusercontent.com/denverquane/amongusdiscord/master/BOT_README.md) if you don't know how to get one.
+3. Rename `config-example.json` to `config.json` and fill in the bot token.
 4. Run the bot
    ```sh
    go run main.go

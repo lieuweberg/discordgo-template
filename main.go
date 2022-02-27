@@ -45,17 +45,20 @@ func main() {
 
 func ready(s *discordgo.Session, e *discordgo.Ready) {
 	s.UpdateStatusComplex(discordgo.UpdateStatusData{
-		Game: &discordgo.Game{
-			Name: "I am a cool bot",
-			// Playing 0; Streaming 1; Listening to 2; Custom 4; Competing in 5
-			Type: 0,
+		Activities: []*discordgo.Activity{
+			{
+				Name: "I am a cool bot",
+				Type: discordgo.ActivityTypeGame,
+			},
 		},
+		Status: string(discordgo.StatusOnline),
 	})
 
 	log.Print(s.State.User.Username + " is online")
 }
 
 var prefix = "bot "
+
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.Bot || !strings.HasPrefix(m.Content, prefix) {
 		return
@@ -69,7 +72,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	perm := util.IncludesPerm
 
-	if perm(discordgo.PermissionViewChannel | discordgo.PermissionSendMessages | discordgo.PermissionEmbedLinks, perms) {
+	if perm(discordgo.PermissionViewChannel|discordgo.PermissionSendMessages|discordgo.PermissionEmbedLinks, perms) {
 		args := strings.Split(m.Content[len(prefix):], " ")
 		if cmd, ok := util.Commands[args[0]]; ok {
 			if len(args) == 1 {
@@ -81,8 +84,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			cmd(s, m, args)
 		}
 	} else if perm(discordgo.PermissionSendMessages, perms) {
-		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("I seem to be missing permissions. Below, false indicates a lacking permission:\n```" +
-		"Read Text Channels & See Voice Channels: %t\nSend Messages: true\nEmbed Links: %t```",
-		perm(discordgo.PermissionViewChannel, perms), perm(discordgo.PermissionEmbedLinks, perms)))
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("I seem to be missing permissions. Below, false indicates a lacking permission. Please grant these permissions on my role.\n```"+
+			"Read Text Channels & See Voice Channels: %t\nSend Messages: true\nEmbed Links: %t```",
+			perm(discordgo.PermissionViewChannel, perms), perm(discordgo.PermissionEmbedLinks, perms)))
 	}
 }
